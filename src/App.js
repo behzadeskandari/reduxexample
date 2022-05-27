@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import {composeWithDevTools} from '@redux-devtools/extension'
 import productReducer from './productReducer';
 import modalReducer from './productReducer';
+import Modal from './Modal';
 
 
 
@@ -40,6 +41,7 @@ function App() {
     <div>
       <Provider store={store}>
         <Counter random="random value"/>
+        <Modal />
       </Provider>
     </div>
   );

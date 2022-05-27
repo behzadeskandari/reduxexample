@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 
 import {connect} from 'react-redux';
-import { DECREASE, INCREASE, RESET } from './actions';
+import { DECREASE, INCREASE, MODAL_OPEN, RESET } from './actions';
 
 function Counter({name,count,increase,decrease,reset}){
     // console.log(props,'state')
@@ -29,7 +29,7 @@ function Counter({name,count,increase,decrease,reset}){
                 Increase
               </button>
             </div>
-        
+       
         </div>
     
     )
@@ -53,7 +53,10 @@ function mapDispatchToProps(dispatch,ownProps){
     return {
          increase: () => dispatch({type : INCREASE}),
          decrease: () => dispatch({type : DECREASE}),
-         reset: () => dispatch({type : RESET })
+         reset: () => {
+          dispatch({type : RESET })
+          dispatch({type : MODAL_OPEN, payload:{name: 'behzad',text: 'LOREM IPSUM DOLOR SIT'} })
         }
+    }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Counter);
