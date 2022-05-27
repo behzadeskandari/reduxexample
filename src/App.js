@@ -1,33 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
-import Counter from './Counter';
-import { useState } from 'react';
+import Counter from './Counter'; 
+import {createStore, configureStore} from 'redux';
+
 
 function App() {
-  const [count,setCount] = useState(0);
 
+  const defaultState = {
+    count : 76,
+    name : 'bob'
+  }
+
+  //setup reducder
+  function reducer(state,action){
+    console.log({action,state})
+    return state;
+  }
+
+
+  //steup store 
+  const store = createStore(reducer,defaultState); 
+  
+  console.log(store.getState(),'store');
   return (
     <div>
-        <div className='container'>
-            <h1>
-              Counter
-            </h1>
-            <p className='counter'>{count}</p>
-            <div className="counter">
-              <button type='button' className="btn" onClick={() => setCount(count -1)}>
-                decrease
-              </button>
-              <button type='button' className="btn" onClick={() => setCount(0)}>
-                Reset
-              </button>
-              <button type='button' className="btn" onClick={() => setCount(count +1)}>
-                Increase
-              </button>
-            </div>
-        
-        </div>
-    
-        <Counter/>
+        <Counter state={store.getState()}/>
     </div>
   );
 }
