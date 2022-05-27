@@ -4,7 +4,7 @@ import Counter from './Counter';
 import {createStore, configureStore} from 'redux';
 import reducer from './reducer'
 import { DECREASE,INCREASE,RESET } from './actions';
-
+import { Provider } from 'react-redux';
 
 
 
@@ -23,18 +23,20 @@ function App() {
   const store = createStore(reducer,defaultState); 
   
 
-  store.dispatch({ type: DECREASE})
+  // store.dispatch({ type: DECREASE})
   
-  store.dispatch({ type: INCREASE})
+  // store.dispatch({ type: INCREASE})
 
   
-  store.dispatch({ type: RESET})
+  // store.dispatch({ type: RESET})
   
   console.log(store.getState(),'store');
   
   return (
     <div>
-        <Counter state={store.getState()}/>
+      <Provider store={store}>
+        <Counter random="random value"/>
+      </Provider>
     </div>
   );
 }

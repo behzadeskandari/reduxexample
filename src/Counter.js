@@ -1,26 +1,31 @@
 import React,{useState} from 'react';
 
-function Counter(props){
-    const amount = props.state.count;
-    const name = props.state.name;
+import {connect} from 'react-redux';
+import { DECREASE, INCREASE, RESET } from './actions';
 
-    const [count,setCount] = useState(0);
+function Counter({name,count,increase,decrease,reset}){
+    // console.log(props,'state')
+
+    // const amount = props.state.count;
+    // const name = props.state.name;
+
+    // const [count,setCount] = useState(0);
 
     return (
         <div className='container'>
             <h1>
               Counter
             </h1>
-            <h2>{name}</h2>
-            <p className='counter'>{amount}</p>
+            <h2>{name}</h2> 
+            <p className='counter'>{count}</p>
             <div className="counter">
-              <button type='button' className="btn" onClick={() => setCount(count -1)}>
+              <button type='button' className="btn" onClick={() => decrease({type : DECREASE})}>
                 decrease
               </button>
-              <button type='button' className="btn" onClick={() => setCount(0)}>
+              <button type='button' className="btn" onClick={() => reset({ type: RESET })}>
                 Reset
               </button>
-              <button type='button' className="btn" onClick={() => setCount(count +1)}>
+              <button type='button' className="btn" onClick={() => increase({ type : INCREASE})}>
                 Increase
               </button>
             </div>
@@ -30,5 +35,19 @@ function Counter(props){
     )
 }
 
+function mapStateToProps(state){
+    return {
+        count: state.count,
+        name: state.name
+    }
+}
+function mapDispatchToProps(dispatch,ownProps){
+    console.log(ownProps,'ownProps');
 
-export default Counter;
+    return {
+         increase: () => dispatch({type : INCREASE}),
+         decrease: () => dispatch({type : DECREASE}),
+         reset: () => dispatch({type : RESET })
+        }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Counter);
