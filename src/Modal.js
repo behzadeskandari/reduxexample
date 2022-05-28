@@ -35,12 +35,12 @@ function mapStateToProps({modalState: {isOpen,name,text} }){
         name,
         text
     }
-}
+  }
 
-function mapDispatchToProps(dispatch){
-    return {
-        close: () => dispatch({type: MODAL_CLOSE})
-    }
-}
+function mapDispatchToProps(dispatch,ownProps){
+       return {
+             close: () => dispatch({type: MODAL_CLOSE})
+        }
+  }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Modal)
