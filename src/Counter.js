@@ -1,9 +1,9 @@
 import React,{useState} from 'react';
 
 import {connect} from 'react-redux';
-import { DECREASE, INCREASE, MODAL_OPEN, RESET } from './actions';
-
-function Counter({name,count,increase,decrease,reset}){
+import { decrease , increase , reset , modalOpen } from './actions';
+//DECREASE, INCREASE, MODAL_OPEN, RESET
+function Counter({name,count,increase,decrease,reset,modalOpen}){
     // console.log(props,'state')
 
     // const amount = props.state.count;
@@ -19,13 +19,37 @@ function Counter({name,count,increase,decrease,reset}){
             <h2>{name}</h2> 
             <p className='counter'>{count}</p>
             <div className="counter">
-              <button type='button' className="btn" onClick={() => decrease({type : DECREASE})}>
+              {/* <button type='button' className="btn" onClick={() => decrease({type : DECREASE})}>
                 decrease
               </button>
               <button type='button' className="btn" onClick={() => reset({ type: RESET })}>
                 Reset
               </button>
               <button type='button' className="btn" onClick={() => increase({ type : INCREASE})}>
+                Increase
+              </button>
+              */}
+              {/* ///////////////////////////////////////////////////////////Second Way////////////////////////////////////////////// */}
+              
+              {/* <button type='button' className="btn" onClick={decrease}>
+                decrease
+              </button>
+              <button type='button' className="btn" onClick={reset}>
+                Reset
+              </button>
+              <button type='button' className="btn" onClick={increase}>
+                Increase
+              </button> */}
+              <button type='button' className="btn" onClick={decrease}>
+                decrease
+              </button>
+              <button type='button' className="btn" onClick={() => {
+                reset();
+                modalOpen("susan","lorem impsom")
+              }}>
+                Reset
+              </button>
+              <button type='button' className="btn" onClick={increase}>
                 Increase
               </button>
             </div>
@@ -47,16 +71,44 @@ function mapStateToProps({countState : {count , name}}){
       name:  name
   }
 }
-function mapDispatchToProps(dispatch,ownProps){
-    console.log(ownProps,'ownProps');
 
-    return {
-         increase: () => dispatch({type : INCREASE}),
-         decrease: () => dispatch({type : DECREASE}),
-         reset: () => {
-          dispatch({type : RESET })
-          dispatch({type : MODAL_OPEN, payload:{name: 'behzad',text: 'LOREM IPSUM DOLOR SIT'} })
-        }
-    }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Counter);
+////////////////////////////////////////////////////////////////////////////////////////////Third Way////////////////////////////////////////////////////
+// const mapDispatchToProps = {
+//   increase,
+//   reset,
+//   decrease,
+//   modalOpen
+// }
+///////////////////////////////////////////////////////////////////////////////////////////
+// function mapDispatchToProps(dispatch,ownProps){
+//     console.log(ownProps,'ownProps');
+
+//     return {
+///////////////////////////////////////////////////////////////////////////////////////////////////////////SECOND WAY ///////////////////////////////////
+//         //  increase: () => dispatch({type : INCREASE}),
+//         //  decrease: () => dispatch({type : DECREASE}),
+//         //  reset: () => {
+//         //   dispatch({type : RESET })
+//         //   dispatch({type : MODAL_OPEN, payload:{name: 'behzad',text: 'LOREM IPSUM DOLOR SIT'} })
+//         //////////////////////////////////////////////////////////////////////////////////////////////////FIRST WAY////////////////////////////////
+//          increase: () => dispatch(increase()),
+//          decrease: () => dispatch(decrease()),
+//          reset: () => {
+//          dispatch(reset())
+//          dispatch(modalOpen("susan","lorem imsom"))  
+      
+//       }
+//     }
+// }
+
+////////////first way of connection 
+// export default connect(mapStateToProps,mapDispatchToProps)(Counter);
+
+
+export default connect(mapStateToProps,{
+  increase,
+  reset,
+  decrease,
+  modalOpen
+})(Counter)
+
